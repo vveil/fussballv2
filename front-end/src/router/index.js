@@ -11,6 +11,11 @@ Vue.use(VueRouter)
     component: Home
   },
   {
+    path: '/formular',
+    name: 'Formular',
+    component: () => import('../views/Formular.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
