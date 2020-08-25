@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="navbar">
     <nav>
       <router-link
         class="routerlink"
@@ -18,9 +18,9 @@ export default {
     return {
       links: [
         { 
-            id: 0, 
-            text: "Home", 
-            page: "/" 
+          id: 0, 
+          text: "Home", 
+          page: "/" 
         },
         {
           id: 1,
@@ -32,6 +32,11 @@ export default {
           text: "About",
           page: "/about",
         },
+        { 
+          id: 3, 
+          text: "Login", 
+          page: "/" 
+        },
       ],
     };
   },
@@ -40,6 +45,7 @@ export default {
 
 <style scoped>
 .routerlink {
-  padding: 1em;
+padding: 1em;
 }
+
 </style>
