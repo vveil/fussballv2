@@ -1,5 +1,4 @@
 <template>
-<body>
   <div class="container">
     <div class="event">
       <h1>Heimspiel gegen <span>SV Stedten</span></h1>
@@ -21,7 +20,7 @@
       <div class="nested">
         <div class="label">PLZ *</div>
         <div class="label">Ort *</div>
-            <input type="number" v-model="plz" required />
+            <input id="plz" type="number" v-model="plz" required />
             <input type="text" v-model="ort" required />
       </div>  
    </div>   
@@ -48,7 +47,6 @@
       </div>
     </button>
   </div>
-</body>  
 </template>
 
 <script>
@@ -64,11 +62,15 @@ export default {
     box-sizing: border-box;
   }
 
-  body {
+  /* body {
     background: #cacbd5;
     color: #666f88;
     line-height: 1.6;
     padding: 1em;
+  } */
+
+  #plz{
+    margin-right: 1em;
   }
 
   .container {
@@ -76,6 +78,10 @@ export default {
     grid-auto-rows: minmax(50px, auto);
     justify-items: stretch;
     align-items: stretch;
+    background: #cacbd5;
+    color: #666f88;
+    line-height: 1.6;
+    padding: 1em;
   }
 
   .event {
@@ -146,7 +152,7 @@ export default {
     font-size: 0.95em;
     color: #666f88;
     text-align: left;
-    margin-left: 0.5em;
+    /* margin-left: 0.5em; */
     
   }
 
@@ -161,7 +167,7 @@ export default {
   label {
     float: left;
     margin-right: 1.5em;
-    margin-left: 1em;
+    /* margin-left: 1em; */
     margin-bottom: 1em;
     font-size: 0.78em;
     color: #3d4251;
@@ -235,7 +241,7 @@ export default {
     animation: fadeIn 1s;
   }
 
-  @-webkit-keyframes fadeIn {
+  /* @-webkit-keyframes fadeIn {
     from {
       opacity: 0;
     }
@@ -261,7 +267,7 @@ export default {
       width: 100%;
       margin: 5px 0;
     }
-  }
+  } */
 
   input,
   textarea {

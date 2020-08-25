@@ -35,7 +35,12 @@ export default {
         { 
           id: 3, 
           text: "Login", 
-          page: "/" 
+          page: "/login" 
+        },
+        { 
+          id: 4, 
+          text: "Admin", 
+          page: "/adminview" 
         },
       ],
     };

@@ -16,6 +16,16 @@ Vue.use(VueRouter)
     component: () => import('../views/Formular.vue')
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/AdminLogin.vue')
+  },
+  {
+    path: '/adminview',
+    name: 'Admin',
+    component: () => import('../views/AdminView.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
