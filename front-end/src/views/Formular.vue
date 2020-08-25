@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="event">
-      <h1>Heimspiel gegen <span>SV Stedten</span></h1>
+      <h2>Heimspiel gegen <span>SV Stedten</span></h2>
       <p>bei der SG BW 1921 Brachstedt</p>
     </div>
   <div class="wrapper">  
@@ -69,30 +69,23 @@ export default {
     padding: 1em;
   } */
 
-  #plz{
-    margin-right: 1em;
-  }
-
   .container {
-    display:grid;
-    grid-auto-rows: minmax(50px, auto);
+    display: grid;
+    /* grid-auto-rows: minmax(50px, auto); */
     justify-items: stretch;
     align-items: stretch;
     background: #cacbd5;
     color: #666f88;
-    line-height: 1.6;
-    padding: 1em;
   }
 
   .event {
-    display: grid;
     text-align: center;
     color: #666f88;
   }
 
   .event p {
     margin-top: -1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
   }
 
   .event span {
@@ -103,6 +96,7 @@ export default {
     display: grid;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(72,94,116,0.6);
+    margin: 1em;
   }
 
   .wrapper > * {
@@ -132,7 +126,7 @@ export default {
     border-radius: 4px;
     -webkit-border-radius: 4px;
     padding: 0.6em 0;
-    /* padding-left: 0.5em; */
+    padding-left: 0.3em;
   }
 
   .contact {
@@ -148,28 +142,31 @@ export default {
     grid-template-columns: 1fr 3fr;
   }
 
+   #plz{
+    margin-right: 1em;
+  }
+
   .label {
     font-size: 0.95em;
     color: #666f88;
     text-align: left;
-    /* margin-left: 0.5em; */
-    
+    margin-left: 0.3em;
   }
 
   .label2 {
     font-size: 0.95em;
     color: #666f88;
     text-align: right;
-    margin-right: 0.5em;
+    margin-right: 0.3em;
     margin-top: -1em;
   }
 
   label {
     float: left;
-    margin-right: 1.5em;
-    /* margin-left: 1em; */
+    margin-right: 2.5em;
+    margin-left: 1em;
     margin-bottom: 1em;
-    font-size: 0.78em;
+    font-size: 0.75em;
     color: #3d4251;
   }
 
@@ -177,8 +174,8 @@ export default {
     display: grid;
     grid-template-columns: 0.5fr 10fr;
     text-align: justify;
-    margin-left: 0.5em;
-    margin-top: 2em;
+    margin-left: 1.5em;
+    margin-top: 1em;
   }
 
   button {
@@ -194,7 +191,7 @@ export default {
     background-color: #d35e35;
     color: #fff;
     padding: 0.85em 2em;
-    margin: 1em 0;
+    margin: 1em;
   }
 
   /* .btn:hover, .btn:focus {

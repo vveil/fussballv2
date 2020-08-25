@@ -20,50 +20,20 @@
   </div>
 </template>
 
-// <script>
-// import axios from 'axios'
-// export default {
-//   name: "adminlogin",
-//   data () {
-//     return {
-//       username: '',
-//       password: ''
-//     }
-//   },
-//   methods: {
-//     login(){
-//       axios.post('ajaxfile.php', {
-//         request: 5,
-//         username: this.username,
-//         password: this.password
-//       })
-//       .then(res => alert(res.data))
-//       .catch(err => console.debug(err));
-//     }
-//   }
-// };
-// </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.text {
-  background-color: #ffffff;
-}
+
 .lgLabel {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  display: block;
-  font-size: 0.85em;
-  float: left;
-  color: teal;
+    font-size: 0.95em;
+    color: #666f88;
+    text-align: left;
+    margin-left: 0.3em;
 }
 
-label {
+.lgLabel {
   float: left;
   margin-top: 5%;
-  font-size: 0.85em;
-  color: teal;
-  display: block;
+
 }
 
 .login {
@@ -71,14 +41,12 @@ label {
   justify-content: center;
   display: flex;
 }
+
 .formWrapper {
   text-align: left;
   margin-top: 20%;
 }
-#buttonWrapper {
-  margin-top: 10%;
-  text-align: end;
-}
+
 input {
   font-size: 1em;
   width: 90%;
@@ -88,20 +56,20 @@ input {
   padding: 8px 13px;
   float: right;
 }
+
 button {
   font-size: 0.8em;
-  border: 1px solid;
+  border: 0;
   justify-content: center;
-  padding: 0.4rem 0.8rem;
+  padding: 0.7em 1em;
   text-align: center;
   float: right;
   border-radius: 4px;
   -webkit-border-radius: 4px;
-  background-color: teal;
-  color: #ffffff;
-  display: block;
+  background-color: #d35e35;
+  color: #fff;
   text-align: center;
-  color: #ffffff;
+   margin: 1.5em 0;
 }
 
 </style>
