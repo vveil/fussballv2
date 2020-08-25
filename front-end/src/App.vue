@@ -1,12 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <navigation></navigation>
+    <router-view />
   </div>
 </template>
+
+<script>
+import navigation from './components/navigation.vue'
+import socketio from 'socket.io-client'
+
+export default {
+  name: 'App',
+  components: {
+    navigation
+  },
+  created(){
+    const socket = socketio('localhost:8080')
+    socket.on('connect', () => {
+      console.log("Connected")
+      socket.emit('horstCreated', {
+        name: "Horst",
+        activity: "Horst will Bier!"
+      })
+    })
+  }
+}
+</script>
 
 <style>
 #app {
@@ -14,19 +33,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  margin-top: 60px;
 }
 </style>
