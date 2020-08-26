@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <navigation></navigation>
+    <navbar></navbar>
     <router-view />
   </div>
 </template>
 
 <script>
-import navigation from './components/navigation.vue'
+import navbar from './components/navbar.vue'
 import socketio from 'socket.io-client'
 
 export default {
   name: 'App',
   components: {
-    navigation
+    navbar
   },
   created(){
     const socket = socketio('localhost:8080')

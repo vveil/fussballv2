@@ -1,8 +1,15 @@
+const API_PREFIX = __dirname + '/api/';
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const express = require('express');
 const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io')(server);
+
+const jwt = require('jsonwebtoken')
 
 var port = process.env.PORT || 8080;
 server.listen(port, function () {
@@ -15,50 +22,157 @@ mongoose.connect('mongodb://root:rootpassword@mongodb/fussball?authSource=admin'
 var router = express.Router();
 
 socketio.on('connect', socket => {
-    console.log("New Client Connected")
     socket.on('horstCreated', data => {
         console.log(data)
     })
+
+    socket.on('addedAttendee', data => {
+        console.log("Added attendee to database")
+        console.log(data)
+        var newAttendee = new Attendee({
+            name: data.name,
+            firstname: data.firstname,
+            mobile: data.mobile,
+            street: data.street,
+            pc: data.pc,
+            city: data.city,
+            eID: data.eID
+        })
+        newAttendee.save(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(result)
+            }
+        })
+    })
+    socket.on('addClub', data => {
+        bcrypt.hash(data.password, saltRounds, function (err, hash) {
+            if (err) {
+                console.log(err)
+            } else {
+                var newClub = new Club({
+                    name: data.name,
+                    username: data.username,
+                    password: hash,
+                    events: []
+                })
+                db.collection('clubs').insertOne(newClub)
+                // newClub.save(function (err, result) {
+                //     if (err) {
+                //         console.log(err);
+                //     }
+                //     else {
+                //         console.log(result)
+                //     }
+                // })
+            }
+        });
+        console.log('Added Club to db')
+    })
+    socket.on('tryLogin', data => {
+        Club.findOne({
+            username: data.username
+        }, function (err, club) {
+            if (err) console.log(err)
+            bcrypt.compare(data.password, club.password, function (err, result) {
+                if (err) console.log(err)
+                else {
+                    console.log(result)
+                    if (result) {
+                        console.log('server - login successfull')
+                        var token = jwt.sign({
+                            clubId: club._id
+                        }, 'key')  
+                        //TODO heraufinden wie nur an einen client schicken (optimalerweise an den richtigen)
+                        socket.emit('isSuccessfull', {
+                            isSuccessfull: true,
+                            token: token
+                        })
+                    } else {
+                        console.log('server - login failed')
+                        socket.emit('isSuccessfull', {
+                            isSuccessfull: false
+                        })
+                    }
+                }
+            });
+        })
+    })
+
+    socket.on('loadAttendees', () => {
+        Attendee.find({}, (err, attendeesDb) => {
+            if(err) console.log(err)
+            var attendees = []
+            attendeesDb.forEach(attendee => {
+                attendees.push(attendee)
+            })
+            console.log(attendees)
+            socket.emit('sendAttendees', attendees)
+        })
+    })
+
+    socket.on('authenticate', token => {
+        jwt.verify(token, 'key', (err, decoded) => {
+            var isAuthenticated = true
+            if(err) isAuthenticated = false
+            console.log(isAuthenticated + ' ' + decoded)
+            socket.emit('isAuthenticated', {
+                isAuthenticated: isAuthenticated
+            })
+        })
+
+    })
 })
 
-router.post('/api/addTeilnehmer', function (req, res, next) {
-    Teilnehmer.create(req.body, function (err, post) {
-        if (err) return next(err);
-        res.json(post);
-    });
-});
-
-const teilnehmerSchema = new mongoose.Schema({
+const attendeeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    vorname: {
+    firstname: {
         type: String,
         required: true
     },
-    adresse: {
+    street: {
         type: String,
         required: true
     },
-    telefonnummer: {
+    pc: {
+        type: Number,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    mobile: {
+        type: Number,
+        required: true
+    },
+    eID: {
         type: Number,
         required: true
     }
 }, { timestamps: true })
 
-const vereinSchema = new mongoose.Schema({
-    vereinsname: {
+const clubSchema = new mongoose.Schema({
+    name: {
+        unique: true,
         type: String,
         required: true
     },
     username: {
+        unique: true,
         type: String,
         required: true
     },
     password: {
         type: String,
-        required: true
+    },
+    events: {
+        type: Array
     }
 })
 
@@ -75,6 +189,10 @@ const eventSchema = new mongoose.Schema({
         type: Date
     }
 })
+
+const Attendee = mongoose.model('Attendee', attendeeSchema);
+const Club = mongoose.model('Club', clubSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

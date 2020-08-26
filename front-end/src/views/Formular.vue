@@ -14,32 +14,32 @@
         <div class="top-form">
           <div class="inner-form">
             <div class="label">Vorname *</div>
-            <input type="text" v-model="vorname" required />
+            <input type="text" v-model="firstname" required />
           </div>
           <br />
           <div class="inner-form">
             <div class="label">Nachname *</div>
-            <input type="text" v-model="nachname" required />
+            <input type="text" v-model="name" required />
           </div>
           <br />
           <div class="inner-form">
             <div class="label">Telefon *</div>
-            <input type="number" v-model="telefon" id="telefon" required />
+            <input type="number" v-model="mobile" id="telefon" required />
           </div>
           <br />
           <div class="inner-form">
             <div class="label">Straße, Hausnummer *</div>
-            <input type="text" v-model="adresse" required />
+            <input type="text" v-model="street" required />
           </div>
         </div>
         <div class="mid-form">
           <div class="inner-mid">
             <div class="label">PLZ *</div>
-            <input type="number" v-model="plz" required />
+            <input type="number" v-model="pc" required />
           </div>
           <div class="inner-mid2">
             <div class="label">Ort *</div>
-            <input type="text" v-model="ort" required />
+            <input type="text" v-model="city" required />
             <br />
           </div>
         </div>
@@ -63,11 +63,8 @@
               </div>
             </div>
           </div>
-          <button class="btn2" id="btn2" name="absenden" type="submit">
-            <div class="popup">
-              Absenden
-              <span class="popuptext" id="myPopup">Formular erfolreich abgesendet</span>
-            </div>
+          <button class="btn2" id="btn2" name="absenden" v-on:click="addAttendee">
+          Absenden
           </button>
         </div>
       </form>
@@ -76,45 +73,30 @@
 </template>
 
 <script>
-// import axios from "axios";
+import socketio from "socket.io-client";
+const socket = socketio('localhost:8080')
 export default {
   name: "Formular",
   data() {
     return {
       form: {
-        vorname: "",
-        nachname: "",
-        telefon: null,
-        adresse: "",
-        plz: null,
-        ort: "",
+        name: "",
+        firstname: "",
+        mobile: null,
+        street: "",
+        city: "",
+        pc: null, 
+        eID: 3
       },
     };
   },
-  // methods: {
-    // addPerson(e) {
-    //   e.preventDefault();
-
-    //   console.log(this.vorname);
-
-    //   axios
-    //     .post(/*keine php file*/ , {
-    //       request: 2,
-    //       ...this.form,
-    //       eID: 3,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       var popup = document.getElementById("myPopup");
-    //       popup.classList.toggle("show");
-    //       setTimeout(() => location.reload(), 2000);
-    //     })
-    //     .catch((err) => {
-    //       console.debug(err);
-    //       setTimeout(() => location.reload(), 2000);
-    //     });
-    // },
-  // },
+  methods: {
+    addAttendee(e) {
+      e.preventDefault();
+      socket.emit('addedAttendee', this.form)
+      console.log(this.form)
+    },
+  },
 };
 </script>
 
