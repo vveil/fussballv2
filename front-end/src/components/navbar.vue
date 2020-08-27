@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
   <div>
-=======
-  <div class="navbar">
->>>>>>> FormularFrontEnd
     <nav>
       <router-link
         class="routerlink"
