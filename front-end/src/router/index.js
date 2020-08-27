@@ -29,14 +29,27 @@ const routes = [
     component: () => import('../views/AdminLogin.vue')
   },
   {
-    path: '/attendeeData',
-    name: 'Teilnehmer',
-    component: () => import('../components/attendeeData.vue')
+    path: '/formular',
+    name: 'Formular',
+    component: () => import('../views/Formular.vue')
   },
   {
-    path: '/vereinsadmin',
-    name: 'Vereinsadmin',
-    component: () => import('../views/Vereinsadmin.vue'),
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/AdminLogin.vue')
+  },
+  {
+    path: '/adminview',
+    name: 'Admin',
+    component: () => import('../views/AdminView.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 

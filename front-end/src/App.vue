@@ -1,18 +1,29 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
     <navbar></navbar>
     <router-view />
+=======
+    <navbar />
+    <router-view/>
+>>>>>>> FormularFrontEnd
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import navbar from './components/navbar.vue'
 import socketio from 'socket.io-client'
+=======
+
+import navbar from './components/navbar.vue'
+>>>>>>> FormularFrontEnd
 
 export default {
   name: 'App',
   components: {
     navbar
+<<<<<<< HEAD
   },
   created(){
     const socket = socketio('localhost:8080')
@@ -23,6 +34,8 @@ export default {
         activity: "Horst will Bier!"
       })
     })
+=======
+>>>>>>> FormularFrontEnd
   }
 }
 </script>

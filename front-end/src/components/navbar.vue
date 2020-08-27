@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div>
+=======
+  <div class="navbar">
+>>>>>>> FormularFrontEnd
     <nav>
       <router-link
         class="routerlink"
@@ -17,36 +21,31 @@ export default {
   data() {
     return {
       links: [
+        { 
+          id: 0, 
+          text: "Home", 
+          page: "/" 
+        },
         {
-          id: 0,
+          id: 1,
           text: "Formular",
           page: "/formular",
         },
         {
-          id: 1,
-          text: "Impressum",
-          page: "/impressum",
-        },
-        {
           id: 2,
-          text: "Register",
-          page: "/register",
+          text: "About",
+          page: "/about",
         },
-        {
-          id: 3,
-          text: "Login",
-          page: "/login",
+        { 
+          id: 3, 
+          text: "Login", 
+          page: "/login" 
         },
-        {
-          id: 4,
-          text: "Teilnehmer",
-          page: "/attendeeData"
+        { 
+          id: 4, 
+          text: "Admin", 
+          page: "/adminview" 
         },
-        {
-          id: 5,
-          text: 'Vereinsadmin',
-          page: '/vereinsadmin'
-        }
       ],
     };
   },

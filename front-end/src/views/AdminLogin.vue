@@ -89,12 +89,9 @@ export default {
   color: #666f88;
   text-align: left;
   margin-left: 0.3em;
-}
-
-.lgLabel {
   float: left;
   margin-top: 5%;
-}
+} 
 
 .login {
   margin: 0 auto; /* to make the div center align to the browser */
