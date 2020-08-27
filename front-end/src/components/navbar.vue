@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 .routerlink {
-padding: 1em;
+/* margin: 1em; */
 }
 
 </style>

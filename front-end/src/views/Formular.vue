@@ -5,7 +5,7 @@
       <p>bei der SG BW 1921 Brachstedt</p>
     </div>
   <div class="wrapper">  
-    <div class="löschung">
+    <div class="loeschung">
         <p>Alle angegebenen Daten werden nach 4 Wochen gelöscht.</p>
     </div>
    <div class="contact">
@@ -17,12 +17,12 @@
             <input type="number" v-model="telefon" id="telefon" required />
       <div class="label">Straße, Hausnummer *</div>
             <input type="text" v-model="adresse" required />
-      <div class="nested">
+      <!-- <div class="nested"> -->
         <div class="label">PLZ *</div>
+            <input id="plz" type="number" v-model="plz" required /> 
         <div class="label">Ort *</div>
-            <input id="plz" type="number" v-model="plz" required />
-            <input type="text" v-model="ort" required />
-      </div>  
+            <input id="ort" type="text" v-model="ort" required />
+      <!-- </div>   -->
    </div>   
    <div class="label2">
             *Pflichtfelder
@@ -73,9 +73,13 @@ export default {
     display: grid;
     /* grid-auto-rows: minmax(50px, auto); */
     justify-items: stretch;
-    align-items: stretch;
+    align-items: left;
     background: #cacbd5;
     color: #666f88;
+    width: 100vw;
+    min-height: 100vh;
+    float: left;
+    margin-left: -0.5em;
   }
 
   .event {
@@ -96,14 +100,16 @@ export default {
     display: grid;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(72,94,116,0.6);
-    margin: 1em;
+    /* margin: 1em; */
+    /* width: 22.9em; */
+    margin: 0 1em;
   }
 
   .wrapper > * {
     padding: 1em;
   }
 
-  .löschung {
+  .loeschung {
     background: #666f88;
     color: #fff;
     font-size: 0.8em;
@@ -142,9 +148,9 @@ export default {
     grid-template-columns: 1fr 3fr;
   }
 
-   #plz{
+  /* #plz {
     margin-right: 1em;
-  }
+  } */
 
   .label {
     font-size: 0.95em;
@@ -175,7 +181,13 @@ export default {
     grid-template-columns: 0.5fr 10fr;
     text-align: justify;
     margin-left: 1.5em;
-    margin-top: 1em;
+    margin-top: 1.5em;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+   height: 18px;
+   border: 0;
   }
 
   button {
@@ -193,12 +205,6 @@ export default {
     padding: 0.85em 2em;
     margin: 1em;
   }
-
-  /* .btn:hover, .btn:focus {
-    background: #666f88;
-    outline: 0;
-    transition: background-color 1s ease-out;
-  } */
 
   .popup {
     position: relative;
