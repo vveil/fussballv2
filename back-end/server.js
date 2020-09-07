@@ -54,19 +54,14 @@ socketio.on('connect', socket => {
             } else {
                 var newClub = new Club({
                     name: data.name,
+                    email: data.email,
                     username: data.username,
                     password: hash,
                     events: []
                 })
-                db.collection('clubs').insertOne(newClub)
-                // newClub.save(function (err, result) {
-                //     if (err) {
-                //         console.log(err);
-                //     }
-                //     else {
-                //         console.log(result)
-                //     }
-                // })
+                newClub.save(err => {
+                    if(err) console.log(err)
+                })
             }
         });
         console.log('Added Club to db')
@@ -110,6 +105,25 @@ socketio.on('connect', socket => {
             })
             console.log(attendees)
             socket.emit('sendAttendees', attendees)
+        })
+    })
+
+    socket.on('addEvent', data => {
+        jwt.verify(data.token, 'key', (err, decoded) => {
+            if(err) console.log(err)
+            var newEvent = new Event({
+                name: data.form.name,
+                startTime: data.form.startTime,
+                endTime: data.form.endTime
+            })
+            newEvent.save(err => {
+                if(err) console.log(err)
+            })
+            Club.findById(decoded.clubId, (err, club) => {
+                if(err) console.log(err)
+                club.events.push(newEvent._id)
+                club.save()
+            })
         })
     })
 
@@ -163,6 +177,11 @@ const clubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        unique: true,
+        type: String,
+        required: true
+    },
     username: {
         unique: true,
         type: String,
@@ -171,9 +190,9 @@ const clubSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    events: {
-        type: Array
-    }
+    events: [{
+        type: mongoose.Schema.Types.ObjectId
+    }]
 })
 
 const eventSchema = new mongoose.Schema({

@@ -13,18 +13,18 @@
       </div>
       <div class="contact">
         <div class="label">Vorname *</div>
-        <input type="text" v-model="firstname" required />
+        <input type="text" v-model="form.firstname" required />
         <div class="label">Nachname *</div>
-        <input type="text" v-model="name" required />
+        <input type="text" v-model="form.name" required />
         <div class="label">Telefon *</div>
-        <input type="number" v-model="mobile" id="telefon" required />
+        <input type="number" v-model="form.mobile" id="telefon" required />
         <div class="label">Straße, Hausnummer *</div>
-        <input type="text" v-model="street" required />
+        <input type="text" v-model="form.street" required />
         <!-- <div class="nested"> -->
         <div class="label">PLZ *</div>
-        <input id="plz" type="number" v-model="pc" required />
+        <input id="plz" type="number" v-model="form.pc" required />
         <div class="label">Ort *</div>
-        <input id="ort" type="text" v-model="city" required />
+        <input id="ort" type="text" v-model="form.city" required />
         <!-- </div>   -->
       </div>
       <div class="label2">*Pflichtfelder</div>

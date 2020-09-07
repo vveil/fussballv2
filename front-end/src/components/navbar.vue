@@ -37,6 +37,11 @@ export default {
           text: "Login", 
           page: "/login" 
         },
+        {
+          id: 5,
+          text: 'Register',
+          page: '/register'
+        },
         { 
           id: 4, 
           text: "Admin", 

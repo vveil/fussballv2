@@ -1,27 +1,66 @@
 <template>
   <div class="container">
     <div class="event">
-      <button class="btn" id="logout" name="logout" >Logout</button>
+      <button class="btn" id="logout" name="logout" v-on:click='logout'>Logout</button>
     </div>
   <div class="wrapper">
    <div class="eventNeu">
       <div class="label">Eventname</div>
-            <input type="text" v-model="vorname" required />
+            <input type="text" v-model="form.name" required />
       <div class="label" >Startdatum</div>
-            <input type="date" v-model="nachname" required />
+            <input type="date" v-model="form.startTime" required />
       <div class="label">Enddatum</div>
-            <input type="date" v-model="telefon" id="telefon" required />
+            <input type="date" v-model="form.endTime" id="telefon" required />
    </div>   
-   <button class="btn" id="btn" name="absenden" type="submit">Event anlegen</button>
+   <button class="btn" id="btn" name="absenden" v-on:click='addEvent'>Event anlegen</button>
   </div>
    <button class="btn" id="btn2" name="alleEvents" >Alle Events anzeigen</button>
   </div>
 </template>
 
 <script>
+import socketio from "socket.io-client";
+const socket = socketio("localhost:8080");
 export default {
-
-}
+  name: "AdminView",
+  beforeCreate() {
+    var token = localStorage.getItem('token');
+    if (!token) {
+        console.log("pushing to login from adminview")
+      this.$router.push("/login");
+    } else {
+      socket.emit("authenticate", token);
+      socket.on('isAuthenticated', data => {
+          if(!data.isAuthenticated){
+              localStorage.clear()
+              console.log("pushing to login cause token wrong")
+              this.$router.push('/login')
+          }
+      })
+    }
+  },
+  data(){
+    return {
+      form: {
+        name: '',
+        startTime: null,
+        endTime: null
+      }
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/login");
+    },
+    addEvent(){
+      socket.emit('addEvent', {
+        form: this.form,
+        token: localStorage.getItem('token')
+        })
+    }
+  },
+};
 </script>
 
 <style>

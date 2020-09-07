@@ -6,11 +6,11 @@
         <div class="formWrapper">
           <label class="lgLabel" name="username">Username:</label>
           <br />
-          <input type="text" v-model="username" />
+          <input type="text" v-model="form.username" />
           <br />
           <label class="lgLabel" name="password">Passwort:</label>
           <br />
-          <input type="password" v-model="password" />
+          <input type="password" v-model="form.password" />
           <br />
           <br />
           <button
@@ -32,13 +32,14 @@ const socket = socketio("localhost:8080");
 export default {
   name: "Login",
   created() {
-    socket.on("isSuccessfull", (data) => {
+    socket.on('isSuccessfull', (data) => {
       if (data.isSuccessfull) {
-        console.log("frontend - login successfull");
+        console.log("frontend - login successfull")
         this.isFailed = false;
         // TODO in httpCookie speichern, weil XSS
+        localStorage.clear()
         localStorage.setItem('token', data.token)
-        this.$router.push('/vereinsadmin')
+        this.$router.push('/adminView')
       } else {
         console.log("frontend - login failed");
         this.isFailed = true;
@@ -58,10 +59,7 @@ export default {
   methods: {
     tryLogin(e) {
       e.preventDefault();
-      socket.emit("tryLogin", {
-        username: this.username,
-        password: this.password,
-      });
+      socket.emit("tryLogin", this.form);
     }
   }
 };

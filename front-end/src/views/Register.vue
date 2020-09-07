@@ -1,16 +1,20 @@
 <template>
 <div class="wrapper">
   <form>
-    <label for="name">Vereinsname</label>
-    <input type="text" v-model="name" required />
+    <label>Vereinsname</label>
+    <input type="text" v-model="form.name" required />
     <br />
     <br />
-    <label for="Username">Username</label>
-    <input type="text" v-model="username" required />
+    <label>E-Mail</label>
+    <input type="text" v-model="form.email" required />
     <br />
     <br />
-    <label for="password">Passwort</label>
-    <input type="password" v-model="password" required />
+    <label>Username</label>
+    <input type="text" v-model="form.username" required />
+    <br />
+    <br />
+    <label>Passwort</label>
+    <input type="password" v-model="form.password" required />
     <br />
     <button class="btn" v-on:click="addClub">Verein anlegen</button>
   </form>
@@ -25,9 +29,10 @@ export default {
   data() {
     return {
       form: {
-        name: "",
-        username: "",
-        password: "",
+        name: '',
+        email: '',
+        username: '',
+        password: '',
       },
     };
   },
@@ -35,11 +40,7 @@ export default {
     addClub(e) {
       e.preventDefault();
       const socket = socketio("localhost:8080");
-      socket.emit("addClub", {
-        name: this.name,
-        username: this.username,
-        password: this.password
-      });
+      socket.emit("addClub", this.form);
       this.name = ''
       this.username = ''
       this.password = ''

@@ -9,21 +9,11 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/formular',
-    name: 'Formular',
-    component: () => import('../views/Formular.vue')
-  },
-  {
     path: '/datenschutz',
     name: 'Datenschutz',
     component: () => import('../components/datenschutz.vue')
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../views/Register.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/AdminLogin.vue')
@@ -34,9 +24,9 @@ const routes = [
     component: () => import('../views/Formular.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/AdminLogin.vue')
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/adminview',
