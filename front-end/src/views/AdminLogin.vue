@@ -27,13 +27,10 @@
     font-size: 0.95em;
     color: #666f88;
     text-align: left;
-    margin-left: 0.3em;
-}
-
-.lgLabel {
-  float: left;
-  margin-top: 5%;
-
+    margin-left: 0.2em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+    float: left;
 }
 
 .login {
@@ -48,8 +45,8 @@
 }
 
 input {
-  font-size: 1em;
-  width: 90%;
+  font-size: 0.95em;
+  width: 100%;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   -webkit-border-radius: 4px;

@@ -156,7 +156,8 @@ export default {
     font-size: 0.95em;
     color: #666f88;
     text-align: left;
-    margin-left: 0.3em;
+    margin-left: 0.2em;
+    margin-bottom: 0.2em;
   }
 
   .label2 {
