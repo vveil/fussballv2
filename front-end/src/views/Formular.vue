@@ -31,10 +31,10 @@
     </div>
     <div class="checkbox">
       <div class="check1">
-        <input type="checkbox" id="dserklärung" required />
+        <input type="checkbox" v-model='dserklaerung' id='dserklaerung' required />
       </div>
       <div class="check2">
-        <label for="dserklärung">
+        <label for="dserklaerung">
           Hiermit willige ich die Verarbeitung der von mir angegebenen personenbezogenen
           Daten ein und erkläre mich mit den Datenschutzregelungen in der
           <a
@@ -53,163 +53,44 @@
 </template>
 
 <script>
-import socketio from "socket.io-client";
-const socket = socketio("localhost:8080");
 export default {
   name: "Formular",
   data() {
     return {
       form: {
-        name: "",
-        firstname: "",
+        name: '',
+        firstname: '',
         mobile: null,
-        street: "",
-        city: "",
+        street: '',
+        city: '',
         pc: null,
-        eID: 3,
       },
+      dserklaerung: false
     };
   },
   methods: {
     addAttendee(e) {
       e.preventDefault();
-      socket.emit("addedAttendee", this.form);
-      console.log(this.form);
+      this.$socket.emit("addAttendee", this.form);
+      this.form.firstname = ''
+      this.form.name = ''
+      this.form.mobile = null
+      this.form.street = ''
+      this.form.pc = null
+      this.form.city = ''
+      this.dserklaerung = !this.dserklaerung
     },
   },
 };
 </script>
 
 <style scoped>
-/* * {
-  margin: 0;
-  padding: 0;
-  user-select: none;
-}
-
-.wrapper {
-  background: #ffffff;
-  width: 100%;
-  max-width: 25em;
-  margin: 3% auto 0;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.event {
-  text-align: center;
-  height: min-content;
-  color: teal;
-}
-
-.event h1 {
-  letter-spacing: 1px;
-}
-
-.form {
-  width: 100%;
-  margin-top: 4%;
-}
-
-.top-form,
-.mid-form {
-  width: 92%;
-  min-height: 65px;
-  margin: 10px 0;
-}
-
-.bot-form {
-  width: 100%;
-  min-height: 65px;
-  margin: 10px 0;
-}
-
-input {
-  font-size: 1em;
-  width: 100%;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 8px 13px;
-}
-
-button {
-  font-size: 1em;
-  width: 100%;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 8px 13px;
-}
-
-#btn2 {
-  border: 0;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 0;
-  background-color: teal;
-  color: #ffffff;
-  padding: 0.8rem 2rem;
-  position: static;
-  display: block;
-}
-
-.form .label {
-  margin-bottom: 5px;
-}
-
-.top-form {
-  float: left;
-}
-
-.mid-form .inner-mid {
-  width: 32%;
-  float: left;
-  margin-right: 10%;
-}
-
-.mid-form .inner-mid2 {
-  width: 55%;
-  float: right;
-}
-
-.label {
-  display: block;
-  font-size: 0.85em;
-  float: left;
-  color: teal;
-}
-
-label {
-  float: left;
-  margin-left: 5%;
-  font-size: 0.85em;
-  color: #000000;
-}
-
-.bot-form .label {
-  text-align: end;
-  margin-top: 15px;
-}
-
-.bot-form .checkbox {
-  text-align: left;
-  margin-bottom: 80px;
-} */
-
 * {
   box-sizing: border-box;
 }
 
-/* body {
-    background: #cacbd5;
-    color: #666f88;
-    line-height: 1.6;
-    padding: 1em;
-  } */
-
 .container {
   display: grid;
-  /* grid-auto-rows: minmax(50px, auto); */
   justify-items: stretch;
   align-items: left;
   background: #cacbd5;
@@ -238,8 +119,6 @@ label {
   display: grid;
   background: #fff;
   box-shadow: 0 0 20px 0 rgba(72, 94, 116, 0.6);
-  /* margin: 1em; */
-  /* width: 22.9em; */
   margin: 0 1em;
 }
 
@@ -254,15 +133,6 @@ label {
   text-align: center;
   margin: 0 0 -0.95em 0;
 }
-
-/* .wrapper > div {
-    background: #eee;
-    padding: 0em 1em;
-  } */
-
-/* .wrapper > div:nth-child(odd){
-    background: #ddd;
-  } */
 
 input {
   font-size: 1em;
@@ -285,10 +155,6 @@ input {
   display: grid;
   grid-template-columns: 1fr 3fr;
 }
-
-/* #plz {
-    margin-right: 1em;
-  } */
 
 .label {
   font-size: 0.95em;
@@ -381,34 +247,6 @@ button {
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
-
-/* @-webkit-keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @media screen and (max-width: 460px) {
-    .wrapper {
-      margin: 25px auto 0;
-    }
-    .mid-form .inner-form {
-      width: 100%;
-      margin: 5px 0;
-    }
-  } */
 
 input,
 textarea {

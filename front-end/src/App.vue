@@ -7,7 +7,6 @@
 
 <script>
 import navbar from './components/navbar.vue'
-import socketio from 'socket.io-client'
 
 export default {
   name: 'App',
@@ -15,13 +14,15 @@ export default {
     navbar
   },
   created(){
-    const socket = socketio('localhost:8080')
-    socket.on('connect', () => {
+    this.$socket.on('connect', () => {
       console.log("Connected")
-      socket.emit('horstCreated', {
+      this.$socket.emit('horstCreated', {
         name: "Horst",
         activity: "Horst will Bier!"
       })
+    })
+    this.$socket.on('horstThirsty', data => {
+      console.log(data.msg)
     })
   }
 }

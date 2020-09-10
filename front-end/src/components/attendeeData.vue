@@ -24,9 +24,6 @@
 </template>
 
 <script>
-import socketio from "socket.io-client";
-
-const socket = socketio("localhost:8080");
 export default {
   name: "attendeeData",
   data() {
@@ -35,14 +32,15 @@ export default {
     };
   },
   created() {
-    socket.on('sendAttendees', (attendees) => {
+    console.log('created() called')
+    this.$socket.on('sendAttendees', attendees => {
+      console.log('arrived in sendAttendees - frontend')
       attendees.forEach(attendee => {
           this.attendees.push(attendee);
       })
     });
-    socket.emit('loadAttendees', {})
+    this.$socket.emit('loadAttendees', {})
   },
-  methods: {},
 };
 </script>
 

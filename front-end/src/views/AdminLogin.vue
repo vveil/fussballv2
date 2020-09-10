@@ -26,13 +26,10 @@
 </template>
 
 <script>
-import socketio from "socket.io-client";
-const socket = socketio("localhost:8080");
-
 export default {
   name: "Login",
   created() {
-    socket.on('isSuccessfull', (data) => {
+    this.$socket.on('successfullLogin', (data) => {
       if (data.isSuccessfull) {
         console.log("frontend - login successfull")
         this.isFailed = false;
@@ -44,7 +41,13 @@ export default {
         console.log("frontend - login failed");
         this.isFailed = true;
       }
-    });
+    })
+    // socket.on('invalidLogin', data => {
+
+    // })
+    // socket.on('errorLogin', data => {
+
+    // });
   },
   data() {
     return {
@@ -59,7 +62,7 @@ export default {
   methods: {
     tryLogin(e) {
       e.preventDefault();
-      socket.emit("tryLogin", this.form);
+      this.$socket.emit("tryLogin", this.form);
     }
   }
 };

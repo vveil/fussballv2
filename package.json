@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "start:frontend": "yarn docker:up && yarn docker:exec yarn in:frontend serve",
+        "start:backend": "yarn docker:up && yarn docker:exec yarn in:backend serve",
+        "docker-compose": "docker-compose -f ./docker/dev-compose.yml",
+        "docker:up": "yarn docker-compose up -d --remove-orphans",
+        "docker:exec": "yarn docker-compose exec web",
+        "in:frontend": "cd front-end && yarn",
+        "in:backend": "cd back-end && yarn"
+    }
+}
