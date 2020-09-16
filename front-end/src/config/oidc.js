@@ -8,9 +8,9 @@ export const oidcSettings = {
     scope: 'openid profile email',
     // responseType: 'id_token token',
     responseType: 'code',
-    automaticSilentRenew: true,
+    automaticSilentRenew: false,
     automaticSilentSignin: false,
     redirectUri: `${APP_URL}/auth/callback`,
-    popupRedirectUri: `${APP_URL}/auth/popup-callback`,
-    silentRedirectUri: `${APP_URL}/silent-renew-oidc.html`,
+    // popupRedirectUri: `${APP_URL}/auth/popup-callback`,
+    // silentRedirectUri: `${APP_URL}/silent-renew-oidc.html`,
 }

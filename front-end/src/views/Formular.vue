@@ -64,9 +64,29 @@ export default {
         street: '',
         city: '',
         pc: null,
+        club: 'SV Brachstedt'
       },
+      clubname: '',
+      clubId: this.$route.params.clubid,
       dserklaerung: false
     };
+  },
+  computed: {
+    clubid(){
+      return this.$route.params.clubid
+    }
+  },
+  mounted() {
+    this.$socket.emit('isValidFormular', {
+      clubId: this.$route.params.clubid
+    })
+  },
+  sockets: {
+    formularValid(data){
+      if(!data.isValidFormular){
+        this.$router.push('/*')
+      }
+    }
   },
   methods: {
     addAttendee(e) {

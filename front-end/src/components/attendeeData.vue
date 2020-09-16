@@ -31,15 +31,16 @@ export default {
       attendees: [],
     };
   },
+  sockets: {
+    sendAttendees(attendees) {
+      attendees.forEach((attendee) => {
+        this.attendees.push(attendee);
+      });
+    },
+  },
+
   created() {
-    console.log('created() called')
-    this.$socket.on('sendAttendees', attendees => {
-      console.log('arrived in sendAttendees - frontend')
-      attendees.forEach(attendee => {
-          this.attendees.push(attendee);
-      })
-    });
-    this.$socket.emit('loadAttendees', {})
+    this.$socket.emit("loadAttendees", {});
   },
 };
 </script>

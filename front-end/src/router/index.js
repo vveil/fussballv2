@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
+import OidcCallback from '@/views/OidcCallback.vue'
+import OidcCallbackError from '@/views/OidcCallbackError.vue'
+import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   base: process.env.BASE_URL,
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -31,7 +36,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/formular',
+      path: '/formular/:clubid',
       name: 'Formular',
       component: () => import('../views/Formular.vue'),
       meta: {
@@ -59,9 +64,33 @@ const router = new VueRouter({
         isPublic: true
       }
     },
+    {
+      path: '/auth/callback', // Needs to match redirectUri in you oidcSettings
+      name: 'oidcCallback',
+      component: OidcCallback,
+      meta: {
+        isPublic: true
+      }
+    },
+    {
+      path: '/auth/callback-error', // Needs to match redirect_uri in you oidcSettings
+      name: 'oidcCallbackError',
+      component: OidcCallbackError,
+      meta: {
+        isPublic: true
+      }
+    },
+    {
+      path: '/*',
+      name: '404',
+      component: () => import('../views/404.vue'),
+      meta: {
+        isPublic: true
+      }
+    }
   ]
 })
 
-// router.beforeEach(vuexOidcCreateRouterMiddleware(store, 'oidcStore'))
+router.beforeEach(vuexOidcCreateRouterMiddleware(store, 'oidcStore'))
 
 export default router

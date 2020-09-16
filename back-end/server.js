@@ -33,21 +33,17 @@ io.on('connect', socket => {
     socket.on('addAttendee', data => {
         console.log("Added attendee to database")
         console.log(data)
-        var newAttendee = models.Attendee({
-            name: data.name,
-            firstname: data.firstname,
-            mobile: data.mobile,
-            street: data.street,
-            pc: data.pc,
-            city: data.city,
-
-        })
-        newAttendee.save(function (err, result) {
-            if (err) {
-                console.log(err);
-            }
+        var attendee = models.Attendee()
+        Object.assign(attendee, data)
+        models.Club.findOne({
+            name: data.club
+        }, (err, club) => {
+            if (err) console.log(err)
             else {
-                console.log(result)
+                club.attendees.push(attendee)
+                club.save(err => {
+                    if(err) console.log(err)
+                })
             }
         })
     })
@@ -65,7 +61,7 @@ io.on('connect', socket => {
     });
 
     socket.on('tryLogin', data => {
-        Club.findOne({
+        models.Club.findOne({
             username: data.username
         }, function (err, club) {
             if (err) console.log(err)
@@ -108,6 +104,26 @@ io.on('connect', socket => {
                 socket.emit('sendAttendees', attendees)
             }
         })
+    })
+
+    socket.on('isValidFormular', data => {
+        models.Club.findOne({
+            _id: data.clubId
+        }, (err, club) => {
+            var isValid = true;
+            if(err) isValid = false
+            socket.emit('formularValid', {
+                isValidFormular: isValid
+            })
+        })
+    })
+
+    socket.on('error', err => {
+        console.log('IO Error: ' , err)
+    })
+    
+    socket.on('message', err => {
+        console.log('IO Message: ' , err)
     })
 })
 
